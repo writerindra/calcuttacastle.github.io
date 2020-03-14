@@ -1,2 +1,71 @@
+<!DOCTYPE html>
 <html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+</head>
+<body style="background:white;">
+
+<center><h1 style="color:#fff">Name and Email</h1></center>
+
+<form id="form" target="_self" onsubmit="return postToGoogle();"  action="" autocomplete="off"> 
+<input id="nameField" name="entry.348177954" placeholder="Enter your name" type="text" required> 
+<input id="emailField" name="entry.1132858361" placeholder="Enter your email" type="email" required> 
+
+<input id="send" type="submit" class="common_btn"></input>
+</form>
+
+<h3 id="success-msg" style="text-align: center !important; margin-top:190px !important; display:none; color:#fff"> Your Information has been updated.</h3>
+
+
+
+
+
+
+
+
+<script>
+function postToGoogle() {
+                var field1 = $("#nameField").val();
+                var field2 = $("#emailField").val();
+ 				
+				if(field1 == ""){
+					alert('Please Fill Your Name');
+					document.getElementById("nameField").focus();
+					return false;
+				}
+				if(field2 == ""){
+					alert('Please Fill Your Email');
+					document.getElementById("emailField").focus();
+					return false;
+				}
+				
+
+
+				
+	
+                $.ajax({
+                    url: "https://docs.google.com/forms/d/e/1FAIpQLSc69qn626phSITuQkwHruVT_nYoiotIoVsDCXD-NI0kW3NvFg/formResponse?",
+					data: {"entry.348177954": field1, "entry.1132858361": field2,},
+                    type: "POST",
+                    dataType: "xml",
+                    success: function(d)
+					{
+					},
+					error: function(x, y, z)
+						{
+
+							$('#success-msg').show();
+							$('#form').hide();
+							
+						}
+                });
+				return false;
+            }
+</script>
+</body>
 </html>
+
